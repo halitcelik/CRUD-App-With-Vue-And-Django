@@ -1,3 +1,6 @@
+{% load staticfiles %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +11,9 @@
 <body>
 
 <div id="app">
+	<div v-if="!over18">
+		<img src="{% static "images/beer.jpg" %}" alt="My image">
+	</div>
 	<nav class="nav-bar">
 
 	</nav>
@@ -241,6 +247,10 @@
 </script>
 </body>
 <style scoped>
+
+html{
+	overflow-x: hidden;
+}
 .recipe-block{
 	background-color: azure;
 	width: 500px;
@@ -260,7 +270,8 @@
 
 
 .nav-bar{
-
+	height: 100px;
+	width: 100vw;
 }
 .not-valid{
 	border:2px solid red!important;
