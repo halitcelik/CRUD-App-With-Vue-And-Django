@@ -1,13 +1,15 @@
+from django.views.generic.edit import FormView
+
 from rest_framework import status
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import (ListCreateAPIView,
+                                     RetrieveUpdateDestroyAPIView)
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from django.views.generic.edit import FormView
 from .forms import RecipeForm
 from .models import Recipe
 from .renderers import RecipeJSONRenderer
-from .serializers import RecipeSerializer, RecipeListSerializer
+from .serializers import RecipeListSerializer, RecipeSerializer
 
 
 class RecipeListApiView(ListCreateAPIView):
@@ -20,9 +22,9 @@ class RecipeListApiView(ListCreateAPIView):
 
 class RecipeRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     lookup_field = 'id'
-    permission_classes = (AllowAny, )
+    permission_classes = (AllowAny,)
     queryset = Recipe.objects.all()
-    renderer_classes = (RecipeJSONRenderer, )
+    renderer_classes = (RecipeJSONRenderer,)
     serializer_class = RecipeSerializer
 
     def retrieve(self, request, id, *args, **kwargs):
@@ -30,8 +32,6 @@ class RecipeRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
         serializer = self.serializer_class(recipe)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
-
-
 
 
 class RecipeView(FormView):
